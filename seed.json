@@ -1,1 +1,182 @@
-
+[
+  {
+    "id": "txn_0001",
+    "description": "Lunch at cafeteria",
+    "amount": 2500,
+    "category": "Food",
+    "date": "2026-10-09",
+    "createdAt": "2026-10-09T12:41:08.000Z",
+    "updatedAt": "2026-10-09T12:41:08.000Z"
+  },
+  {
+    "id": "txn_0002",
+    "description": "Moto ride to Kimironko",
+    "amount": 1500.75,
+    "category": "Transport",
+    "date": "2026-10-09",
+    "createdAt": "2026-10-09T15:30:00.000Z",
+    "updatedAt": "2026-10-09T15:30:00.000Z"
+    },
+    {
+    "id": "txn_0003",
+    "description": "Monthly gym subscription",
+    "amount": 15000,
+    "category": "Sport",
+    "date": "2026-10-08",
+    "createdAt": "2026-10-08T08:20:00.000Z",
+    "updatedAt": "2026-10-08T08:20:00.000Z"
+    },
+    {
+    "id": "txn_0004",
+    "description": "Online course subscription",
+    "amount": 25000,
+    "category": "Education",
+    "date": "2026-10-08",
+    "createdAt": "2026-10-08T14:17:30.000Z",
+    "updatedAt": "2026-10-08T14:17:30.000Z"
+    },
+    {
+    "id": "txn_0005",
+    "description": "Coffee with friends",
+    "amount": 6000,
+    "category": "Entertainment",
+    "date": "2026-10-07",
+    "createdAt": "2026-10-07T19:45:00.000Z",
+    "updatedAt": "2026-10-07T19:45:00.000Z"
+    },
+    {
+    "id": "txn_0006",
+    "description": "Buying groceries",
+    "amount": 20000,
+    "category": "Food",
+    "date": "2026-10-06",
+    "createdAt": "2026-10-06T08:30:00.000Z",
+    "updatedAt": "2026-10-06T08:30:00.000Z"
+    },
+    {
+    "id": "txn_0007",
+    "description": "Printing the project report",
+    "amount": 2000,
+    "category": "Education",
+    "date": "2026-10-05",
+    "createdAt": "2026-10-05T11:15:00.000Z",
+    "updatedAt": "2026-10-05T11:15:00.000Z"
+    },
+    {
+    "id": "txn_0008",
+    "description": "Monthly internet bundle",
+    "amount": 5000,
+    "category": "Mobile Data",
+    "date": "2026-10-04",
+    "createdAt": "2026-10-04T13:00:00.000Z",
+    "updatedAt": "2026-10-04T13:00:00.000Z"
+    },
+    { 
+    "id": "txn_0009",
+    "description": "Buying a new book",
+    "amount": 12000.50,
+    "category": "Education",
+    "date": "2026-10-03",
+    "createdAt": "2026-10-03T10:30:00.000Z",
+    "updatedAt": "2026-10-03T10:30:00.000Z"
+    },
+    {
+    "id": "txn_0010",
+    "description": "Movie night with friends",
+    "amount": 8000,
+    "category": "Entertainment",
+    "date": "2026-10-02",
+    "createdAt": "2026-10-02T20:00:00.000Z",
+    "updatedAt": "2026-10-02T20:00:00.000Z"
+    },
+    {
+    "id": "txn_0011",
+    "description": "Semester tuition installment",
+    "amount": 1250000,
+    "category": "Fees",
+    "date": "2026-10-01",
+    "createdAt": "2026-10-01T20:00:00.000Z",
+    "updatedAt": "2026-10-01T20:00:00.000Z"
+    },
+    { 
+    "id": "txn_0012",
+    "description": "Buying chapati, beans, and avocado",
+    "amount": 3800,
+    "category": "Food",
+    "date": "2026-09-30",
+    "createdAt": "2026-09-30T12:00:00.000Z",
+    "updatedAt": "2026-10-03T10:30:00.000Z"
+    },
+    {
+    "id": "txn_0013",
+    "description": "Buying a new pair of shoes",
+    "amount": 45000,
+    "category": "Clothing",
+    "date": "2026-09-29",
+    "createdAt": "2026-09-29T15:00:00.000Z",
+    "updatedAt": "2026-09-29T15:00:00.000Z"
+    },
+    {
+    "id": "txn_0014",
+    "description": "Haircut at the salon",
+    "amount": 3000,
+    "category": "Self-care",
+    "date": "2026-09-01",
+    "createdAt": "2026-09-01T10:00:00.000Z",
+    "updatedAt": "2026-09-01T10:00:00.000Z"
+    },
+    {
+    "id": "txn_0015",
+    "description": "Moto ride to campus",
+    "amount": 2000.45,
+    "category": "Transport",
+    "date": "2026-09-01",
+    "createdAt": "2026-09-01T08:00:00.000Z",
+    "updatedAt": "2026-09-01T08:00:00.000Z"
+    },
+    {
+    "id": "txn_0016",
+    "description": "Airtime top up for for the week",
+    "amount": 1000,
+    "category": "Mobile Data",
+    "date": "2026-09-01",
+    "createdAt": "2026-09-01T07:00:00.000Z",
+    "updatedAt": "2026-09-01T07:00:00.000Z"
+    },
+    {
+    "id": "txn_0017",
+    "description": "Notebook <b>3 pack</b>",
+    "amount": 2400.75,
+    "category": "Education",
+    "date": "2026-08-30",
+    "createdAt": "2026-08-30T09:00:00.000Z",
+    "updatedAt": "2026-08-30T09:00:00.000Z"
+    },
+    {
+    "id": "txn_0018",
+    "description": "Study group snacks: juice, biscuits and two boxes of samosas for everyone who stayed late",
+    "amount": 9400,
+    "category": "Food",
+    "date": "2026-08-29",
+    "createdAt": "2026-08-29T14:00:00.000Z",
+    "updatedAt": "2026-08-29T14:00:00.000Z"
+    },
+    {
+    "id": "txn_0019",
+    "description": "Bus card rounding adjustment",
+    "amount": 0.05,
+    "category": "Transport",
+    "date": "2024-02-29",
+    "createdAt": "2024-02-29T08:00:00.000Z",
+    "updatedAt": "2024-02-29T08:00:00.000Z"
+    },
+    {
+    "id": "txn_0020",
+    "description": "Mama's tea & mandazi (free refill)",
+    "amount": 0,
+    "category": "Food",
+    "date": "2024-12-31",
+    "createdAt": "2024-12-31T10:00:00.000Z",
+    "updatedAt": "2025-01-02T10:00:00.000Z"
+    }
+]
