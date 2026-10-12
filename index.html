@@ -1,1 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple finance tracker for students to record spending, search with regex and stay under a monthly cap.">
+  <title>Student Finance Tracker</title>
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <script type="module" src="scripts/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>Student Finance Tracker</h1>
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#records">Records</a></li>
+          <li><a href="#form-section">Add transaction</a></li>
+          <li><a href="#settings">Settings</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <noscript>
+      <p class="noscript-message">JavaScript is turned off in your browser. The tracker needs it to work, so please turn it on.</p>
+    </noscript>
+
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Student Finance Tracker</h2>
+      <p>This app helps students record what they spend, sort and search their transactions with regular expressions, and stay under a monthly spending cap. Everything is saved in your browser, so nothing leaves your device.</p>
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="https://github.com/Quentin712">GitHub profile</a></li>
+        <li><a href="mailto:q.ntore@alustudent.com">q.ntore@alustudent.com</a></li>
+      </ul>
+    </section>
+
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <h2 id="dashboard-heading">Dashboard</h2>
+      <p id="currency-note" class="field-hint"></p>
+
+      <dl class="stats-grid">
+        <div class="stat">
+          <dt>Total records</dt>
+          <dd id="stat-count">0</dd>
+        </div>
+        <div class="stat">
+          <dt>Total spent</dt>
+          <dd id="stat-sum">0</dd>
+        </div>
+        <div class="stat">
+          <dt>Top category</dt>
+          <dd id="stat-top-category">None yet</dd>
+        </div>
+        <div class="stat">
+          <dt>Cap left this month</dt>
+          <dd id="stat-cap-left">No cap set</dd>
+        </div>
+      </dl>
+
+      <div class="cap-box">
+        <label for="cap-progress">Share of this month's cap used</label>
+        <progress id="cap-progress" max="100" value="0"></progress>
+        <p id="cap-message-polite" role="status"></p>
+        <p id="cap-message-assertive" role="alert"></p>
+      </div>
+
+      <h3 id="trend-heading">Last 7 days</h3>
+      <div id="trend-chart" class="trend-chart" role="img" aria-labelledby="trend-heading trend-summary"></div>
+      <p id="trend-summary" class="field-hint"></p>
+    </section>
+
+    <section id="records" aria-labelledby="records-heading">
+      <h2 id="records-heading" tabindex="-1">Records</h2>
+
+      <div class="toolbar">
+        <div class="field search-field" role="search">
+          <label for="search-input">Search with a regex pattern</label>
+          <input type="text" id="search-input" autocomplete="off" spellcheck="false" aria-describedby="search-hint search-feedback">
+          <p class="field-hint" id="search-hint">Try: (coffee|tea), \.\d{2}\b or \b(\w+)\s+\1\b</p>
+          <p class="field-hint" id="search-feedback" role="status"></p>
+        </div>
+
+        <div class="field checkbox-field">
+          <input type="checkbox" id="search-case" checked>
+          <label for="search-case">Ignore upper and lower case</label>
+        </div>
+
+        <div class="field">
+          <label for="sort-select">Sort by</label>
+          <select id="sort-select">
+            <option value="date-desc">Date, newest first</option>
+            <option value="date-asc">Date, oldest first</option>
+            <option value="description-asc">Description, A to Z</option>
+            <option value="description-desc">Description, Z to A</option>
+            <option value="amount-asc">Amount, low to high</option>
+            <option value="amount-desc">Amount, high to low</option>
+          </select>
+        </div>
+      </div>
+
+      <p id="empty-state" class="empty-state" hidden></p>
+
+      <div class="table-wrap">
+        <table class="records-table" id="records-table" role="table">
+          <caption class="visually-hidden">Your transactions</caption>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th scope="col" role="columnheader">Date</th>
+              <th scope="col" role="columnheader">Description</th>
+              <th scope="col" role="columnheader">Category</th>
+              <th scope="col" role="columnheader">Amount</th>
+              <th scope="col" role="columnheader">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="records-body" role="rowgroup"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="form-section" aria-labelledby="form-heading">
+      <h2 id="form-heading">Add a transaction</h2>
+      <form id="txn-form" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="txn-description">Description</label>
+            <input type="text" id="txn-description" autocomplete="off" aria-describedby="txn-description-hint txn-description-warning txn-description-error">
+            <p class="field-hint" id="txn-description-hint">No spaces at the start or end.</p>
+            <p class="field-warning" id="txn-description-warning"></p>
+            <p class="field-error" id="txn-description-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="txn-amount">Amount</label>
+            <input type="text" id="txn-amount" inputmode="decimal" autocomplete="off" aria-describedby="txn-amount-hint txn-amount-error">
+            <p class="field-hint" id="txn-amount-hint">Numbers only, up to 2 decimals. Example: 2500 or 12.50</p>
+            <p class="field-error" id="txn-amount-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="txn-category">Category</label>
+            <input type="text" id="txn-category" list="category-list" autocomplete="off" aria-describedby="txn-category-hint txn-category-error">
+            <datalist id="category-list"></datalist>
+            <p class="field-hint" id="txn-category-hint">Letters, spaces and hyphens only.</p>
+            <p class="field-error" id="txn-category-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="txn-date">Date</label>
+            <input type="text" id="txn-date" inputmode="numeric" autocomplete="off" aria-describedby="txn-date-hint txn-date-error">
+            <p class="field-hint" id="txn-date-hint">Format: YYYY-MM-DD</p>
+            <p class="field-error" id="txn-date-error"></p>
+          </div>
+        </div>
+        <button type="submit" class="btn">Add transaction</button>
+      </form>
+    </section>
+
+    <section id="settings" aria-labelledby="settings-heading">
+      <h2 id="settings-heading">Settings</h2>
+
+      <form id="settings-form" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="set-cap">Monthly spending cap</label>
+            <input type="text" id="set-cap" inputmode="decimal" autocomplete="off" aria-describedby="set-cap-hint set-cap-error">
+            <p class="field-hint" id="set-cap-hint">In <span class="base-currency-label">RWF</span>. Leave empty for no cap.</p>
+            <p class="field-error" id="set-cap-error"></p>
+          </div>
+
+          <div class="field">
+            <label for="set-display">Show amounts in</label>
+            <select id="set-display">
+              <option value="RWF">RWF</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+            </select>
+            <p class="field-hint">Amounts you type are always saved in <span class="base-currency-label">RWF</span>.</p>
+          </div>
+
+          <fieldset class="field rates-box" aria-describedby="rates-error">
+            <legend>Exchange rates</legend>
+            <div id="rates-fields" class="rates-fields"></div>
+            <p class="field-error" id="rates-error"></p>
+          </fieldset>
+
+          <div class="field">
+            <label for="set-categories">Categories</label>
+            <input type="text" id="set-categories" autocomplete="off" aria-describedby="set-categories-hint set-categories-error">
+            <p class="field-hint" id="set-categories-hint">Separate with commas.</p>
+            <p class="field-error" id="set-categories-error"></p>
+          </div>
+        </div>
+        <button type="submit" class="btn">Save settings</button>
+      </form>
+
+      <h3>Your data</h3>
+      <div class="data-actions">
+        <button type="button" class="btn btn-secondary" id="export-btn">Export JSON</button>
+        <div class="field">
+          <label for="import-file">Import JSON file</label>
+          <input type="file" id="import-file" accept=".json,application/json">
+        </div>
+        <button type="button" class="btn btn-secondary" id="sample-btn">Load sample data</button>
+        <button type="button" class="btn btn-danger" id="clear-btn">Delete all records</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Student Finance Tracker. Built as a summative project. <a href="https://github.com/Quentin712">GitHub</a></p>
+  </footer>
+
+  <div class="toast-area">
+    <p id="app-status" class="toast" role="status"></p>
+    <p id="app-error" class="toast toast-error" role="alert"></p>
+  </div>
+</body>
+</html>
