@@ -1,0 +1,274 @@
+/* Mobile first. The base rules are for phones (about 360px wide).
+   Wider screens are handled at 768px and 1024px. */
+
+.site-header {
+  background: var(--color-header);
+  color: #ffffff;
+  padding: var(--space-2);
+}
+
+.header-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.site-header h1 {
+  margin: 0;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.nav-list a {
+  display: block;
+  padding: 0.4rem 0.7rem;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.nav-list a:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.site-header :focus-visible {
+  outline-color: #ffffff;
+}
+
+main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--space-2);
+}
+
+main > section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-left: 5px solid var(--color-primary);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.noscript-message {
+  padding: var(--space-2);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-1);
+  margin: 0 0 var(--space-2);
+}
+
+.toolbar {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.form-grid {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.data-actions {
+  display: grid;
+  gap: var(--space-2);
+  align-items: start;
+}
+
+.site-footer {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-2) var(--space-4);
+  color: var(--color-muted);
+}
+
+/* ---------- records: cards on phones, table from 768px ---------- */
+
+.records-table,
+.records-table tbody,
+.records-table tr,
+.records-table td {
+  display: block;
+}
+
+.records-table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.records-table tr {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  padding: var(--space-1) var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.records-table td {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed var(--color-line);
+}
+
+.records-table td:last-child {
+  border-bottom: 0;
+}
+
+.records-table td::before {
+  content: attr(data-label);
+  flex: 0 0 6rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.records-table .cell-value {
+  flex: 1;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.records-table td.actions {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.records-table td.actions::before {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  h1 { font-size: 1.7rem; }
+
+  .header-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  main {
+    padding: var(--space-3);
+  }
+
+  main > section {
+    padding: var(--space-3);
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .toolbar {
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: start;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .data-actions {
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+    align-items: end;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  .records-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .records-table thead {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    display: table-header-group;
+  }
+
+  .records-table tbody {
+    display: table-row-group;
+  }
+
+  .records-table tr {
+    display: table-row;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .records-table th,
+  .records-table td {
+    display: table-cell;
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .records-table td::before {
+    display: none;
+  }
+
+  .records-table .cell-value {
+    text-align: left;
+  }
+
+  .records-table td.num,
+  .records-table th:nth-child(4) {
+    text-align: right;
+  }
+
+  .records-table td.actions {
+    display: table-cell;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1024px) {
+  main {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  main > section {
+    padding: var(--space-4);
+  }
+
+  .toolbar {
+    grid-template-columns: 3fr 1.5fr 1.5fr;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+}
