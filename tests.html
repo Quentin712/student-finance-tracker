@@ -1,1 +1,29 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tests | Student Finance Tracker</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles/base.css">
+  <style>
+    main { max-width: 48rem; margin: 0 auto; padding: var(--space-2); }
+    #results { list-style: none; margin: var(--space-2) 0; padding: 0; }
+    #results li { padding: 0.5rem 0.75rem; margin-bottom: 0.4rem; background: var(--color-surface); border: 1px solid var(--color-line); border-left-width: 5px; border-radius: var(--radius); }
+    #results li.pass { border-left-color: #0a6b2d; }
+    #results li.fail { border-left-color: var(--color-error); background: var(--color-error-bg); font-weight: 600; }
+    #summary { font-size: 1.2rem; font-weight: 700; }
+    #summary.pass { color: #0a6b2d; }
+    #summary.fail { color: var(--color-error); }
+  </style>
+  <script type="module" src="tests/tests.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Student Finance Tracker tests</h1>
+    <p id="summary" role="status">Running tests...</p>
+    <ul id="results" aria-label="Test results"></ul>
+    <p><a href="index.html">Back to the app</a></p>
+  </main>
+</body>
+</html>
