@@ -1,6 +1,7 @@
 // The app's data and the functions that change it.
 
 import * as storage from './storage.js';
+import { validateRecord } from './validators.js';
 
 export const state = {
   records: [],
@@ -9,13 +10,16 @@ export const state = {
   query: '',
   ignoreCase: true,
   editingId: null,
-  saveFailed: false
+  saveFailed: false,
+  skippedRecords: 0
 };
 
 // Returns true if records were found in storage.
 export function initState() {
   const saved = storage.loadRecords();
-  state.records = saved === null ? [] : saved;
+  const all = saved === null ? [] : saved;
+  state.records = all.filter(function (r) { return validateRecord(r).length === 0; });
+  state.skippedRecords = all.length - state.records.length;
   state.settings = storage.loadSettings();
   return saved !== null;
 }
