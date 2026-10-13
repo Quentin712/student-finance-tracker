@@ -53,6 +53,10 @@ export function loadSettings() {
   settings.baseCurrency = defaultSettings.baseCurrency;
   if (CURRENCIES.indexOf(settings.displayCurrency) === -1) settings.displayCurrency = settings.baseCurrency;
   if (typeof settings.cap !== 'number' || settings.cap < 0) settings.cap = 0;
+  CURRENCIES.forEach(function (code) {
+    const rate = settings.rates[code];
+    if (typeof rate !== 'number' || !isFinite(rate) || rate <= 0) settings.rates[code] = defaultSettings.rates[code];
+  });
   if (!Array.isArray(settings.categories) || settings.categories.length === 0) {
     settings.categories = defaultSettings.categories.slice();
   }
