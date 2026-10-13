@@ -179,11 +179,23 @@ Animations: the bar chart grows when it appears, the cap progress bar slides, me
 
 Modules do not load from a `file://` address, so use a small local server:
 
-```
-python3 -m http.server 8000
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Quentin712/student-finance-tracker.git
+   ```
 
-Then open http://localhost:8000.
+2. Navigate into the project folder:
+   ```bash
+   cd student-finance-tracker
+   ```
+3. Modules do not load from a file:// address, so use a small local server:
+  ```bash
+  python3 -m http.server 8000
+  ```
+4. Then open http://localhost:8000 in your browser.
+  ```bash
+  http://localhost:8000/
+  ```
 
 ## Run the tests
 
