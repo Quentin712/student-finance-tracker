@@ -34,6 +34,28 @@ function setToday() {
   byId('txn-date').value = toDateString(new Date());
 }
 
+function matchCategory(value) {
+  const found = state.settings.categories.find(function (name) {
+    return name.toLowerCase() === value.toLowerCase();
+  });
+  return found || value;
+}
+
+function addMissingCategories(records) {
+  const next = state.settings.categories.slice();
+  const known = next.map(function (name) { return name.toLowerCase(); });
+  records.forEach(function (r) {
+    if (known.indexOf(r.category.toLowerCase()) === -1) {
+      known.push(r.category.toLowerCase());
+      next.push(r.category);
+    }
+  });
+  if (next.length === state.settings.categories.length) return;
+  saveSettings(Object.assign({}, state.settings, { categories: next }));
+  ui.fillCategories();
+  ui.fillSettingsForm();
+}
+
 // ---------- add form ----------
 
 function checkField(name) {
@@ -57,7 +79,7 @@ function handleAdd(event) {
   addRecord({
     description: collapseSpaces(byId('txn-description').value),
     amount: byId('txn-amount').value,
-    category: byId('txn-category').value,
+    category: matchCategory(byId('txn-category').value),
     date: byId('txn-date').value
   });
 
@@ -103,6 +125,7 @@ function saveEdit(tr) {
     values[name] = input.value;
   }
   values.description = collapseSpaces(values.description);
+  values.category = matchCategory(values.category);
   updateRecord(id, values);
   state.editingId = null;
   afterChange('Transaction updated.');
@@ -231,6 +254,7 @@ async function handleImport(event) {
     return;
   }
   if (!confirm('Replace your ' + state.records.length + ' records with the ' + check.records.length + ' from this file?')) return;
+  addMissingCategories(check.records);
   replaceRecords(check.records);
   afterChange('Imported ' + check.records.length + ' records.');
 }
@@ -245,6 +269,7 @@ async function loadSample(userAsked) {
     if (!response.ok) throw new Error('seed.json was not found');
     const check = validateImport(await response.json());
     if (!check.ok) throw new Error(check.errors[0]);
+    addMissingCategories(check.records);
     replaceRecords(check.records);
     afterChange('Sample data loaded (' + check.records.length + ' records).');
   } catch (err) {
@@ -302,6 +327,9 @@ function init() {
   ui.fillSettingsForm();
   setToday();
   ui.renderAll();
+  if (state.skippedRecords > 0) {
+    ui.say(state.skippedRecords + ' saved records were damaged and skipped.', true);
+  }
   bindEvents();
   if (!hadSavedData) loadSample(false);
 }
