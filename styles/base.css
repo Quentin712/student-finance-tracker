@@ -90,7 +90,7 @@ main:focus {
 }
 
 .skip-link {
-  position: absolute;
+  position: fixed;
   left: var(--space-1);
   top: -4rem;
   z-index: 20;
