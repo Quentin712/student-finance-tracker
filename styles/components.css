@@ -168,9 +168,9 @@ input[aria-invalid="true"] {
 
 .stat dd {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .cap-box {
