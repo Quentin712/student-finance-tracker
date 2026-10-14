@@ -68,7 +68,7 @@ main > section {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-1);
   margin: 0 0 var(--space-2);
 }
@@ -87,8 +87,13 @@ main > section {
 
 .data-actions {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-2);
   align-items: start;
+}
+
+.data-actions > * {
+  min-width: 0;
 }
 
 .site-footer {
@@ -145,8 +150,9 @@ main > section {
 
 .records-table .cell-value {
   flex: 1;
+  min-width: 0;
   text-align: right;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .records-table td.actions {
@@ -159,12 +165,16 @@ main > section {
 }
 
 @media (min-width: 480px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .rates-fields {
     grid-template-columns: 1fr 1fr;
   }
 
   .data-actions {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -186,7 +196,7 @@ main > section {
   }
 
   .stats-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .toolbar {
@@ -256,6 +266,15 @@ main > section {
   .records-table td.num,
   .records-table th:nth-child(4) {
     text-align: right;
+  }
+
+  .records-table td.num,
+  .records-table td[data-label="Date"] {
+    white-space: nowrap;
+  }
+
+  .records-table td:last-child {
+    border-bottom: 1px solid var(--color-line);
   }
 
   .records-table td.actions {
