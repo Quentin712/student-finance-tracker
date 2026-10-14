@@ -87,12 +87,12 @@ Doubled spaces inside a description are collapsed to one space when you save.
 
 ### Search patterns to try
 
-The search looks at the description, category, date and the amount as it is shown on screen. Results below use the 20 sample records.
+The search looks at the description, category, date and the amount as it is shown on screen. Results below were counted in the app with the 20 sample records.
 
 | Pattern | What it finds | Matches |
 | --- | --- | --- |
 | `(coffee\|tea)` | Drink keywords | 2 records |
-| `\.\d{2}\b` | Amounts with cents | 5 records |
+| `\.\d{2}\b` | Cents. Every amount is shown with 2 decimals (`RWF 2,500.00`), so this matches all records | 20 records |
 | `\b(\w+)\s+\1\b` | A repeated word | 1 record ("for for") |
 | `^Moto` | Descriptions starting with Moto | 2 records |
 | `<b>` | Literal HTML text, shown as plain text and never run as HTML | 1 record |
@@ -157,10 +157,29 @@ Focus moves where you would expect:
 - A visible focus ring on every control.
 - Search matches use the `<mark>` element, built with DOM methods and never `innerHTML`.
 - The bar chart has a text summary, so the numbers are not only in the picture.
-- Colors were chosen for readable contrast. Errors never rely on color alone, they also have text.
+- Colors were chosen for readable contrast (numbers in the table below). Errors never rely on color alone, they also have text.
 - `prefers-reduced-motion` turns animations off.
 - Table cells keep their table roles even when the layout switches to cards on phones.
-- Touch targets are at least 44px tall on inputs and main buttons.
+- Touch targets are at least 44px tall on inputs and main buttons. The Edit and Delete buttons inside rows are 36px tall.
+
+### Contrast check
+
+Ratios were calculated from the CSS colors with the WCAG formula. Normal text needs 4.5 or more, and input borders need 3 or more.
+
+| Pair | Ratio |
+| --- | --- |
+| Body text on white | 17.40 |
+| Muted text on white / on the stat boxes | 8.86 / 7.80 |
+| Links and secondary buttons on white | 6.67 |
+| White text on primary buttons (normal / hover) | 6.67 / 8.87 |
+| White text on the header | 13.49 |
+| Error text on white / on the error background | 7.33 / 6.42 |
+| Warning text on white | 7.41 |
+| Highlighted match text | 12.58 |
+| White text on message toasts (normal / error) | 14.68 / 7.33 |
+| Input borders on white | 4.54 |
+
+These come from a calculation, not from a browser audit tool. Running Lighthouse or axe in the browser is a good second check.
 
 ## Responsive design
 
@@ -168,8 +187,8 @@ Mobile first. The base styles are for about 360px, with extra rules at 480px, 76
 
 | Width | What changes |
 | --- | --- |
-| 360px (base) | One column. Records are cards. Stats in 2 columns. |
-| 480px | Exchange rate fields and data buttons go into 2 columns. |
+| 360px (base) | One column. Records are cards. Stats in 1 column. |
+| 480px | Stats, exchange rate fields and data buttons go into 2 columns. |
 | 768px | Header in one row. Records become a real table. Stats in 4 columns. Form in 2 columns. |
 | 1024px | More padding and wider spacing. |
 
@@ -177,25 +196,23 @@ Animations: the bar chart grows when it appears, the cap progress bar slides, me
 
 ## Run it locally
 
-Modules do not load from a `file://` address, so use a small local server:
+Browsers block JavaScript modules on `file://` addresses, so double clicking `index.html` will not work. Use a small local server instead.
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/Quentin712/student-finance-tracker.git
    ```
-
-2. Navigate into the project folder:
+2. Go into the project folder:
    ```bash
    cd student-finance-tracker
    ```
-3. Modules do not load from a file:// address, so use a small local server:
-  ```bash
-  python3 -m http.server 8000
-  ```
-4. Then open http://localhost:8000 in your browser.
-  ```bash
-  http://localhost:8000/
-  ```
+3. Start the server:
+   ```bash
+   python3 -m http.server 8000
+   ```
+4. Open http://localhost:8000 in your browser. Stop the server with Ctrl + C.
+
+The VS Code Live Server extension works too. Right click `index.html` and choose "Open with Live Server".
 
 ## Run the tests
 
@@ -242,12 +259,14 @@ docs/                 planning documents (see below)
 The `docs/` folder holds the milestone M1 material:
 
 - [docs/spec.md](docs/spec.md): the app spec, data model and accessibility plan.
-- [docs/wireframes/](docs/wireframes/): layout wireframes for phone and desktop.
+- [docs/wireframes/](docs/wireframes/): wireframes for phone (360px), tablet (768px) and desktop (1024px).
 
 ## Known limits
 
 - The base currency is fixed to RWF. USD and EUR are display currencies.
-- There is one monthly cap, counted from the first day of the current calendar month.
+- There is one monthly cap, counted from the first day of the current calendar month. The sample data is dated October 2026, so the cap numbers only make sense for sample data while it is October 2026.
 - The "last 7 days" chart only fills up with recent dates. The sample data is dated early October 2026, so add a transaction dated today to see the chart move.
 - Data lives in one browser. Use Export JSON to move it to another device.
 - Delete and import confirmations use the browser's built-in dialogs.
+- Search runs on the text shown on screen, so amounts are matched as formatted text like `RWF 1,500.75`, not as raw numbers.
+- A regex that is valid but very slow on long text (for example `(a+)+$`) is not blocked. The compiler only catches patterns that are invalid.
