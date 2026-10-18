@@ -7,7 +7,7 @@ A money tracker for students, built with plain HTML, CSS and JavaScript. No fram
 | **Theme chosen** | Student Finance Tracker |
 | **Live site (GitHub Pages)** | https://quentin712.github.io/student-finance-tracker/ |
 | **Repository** | https://github.com/Quentin712/student-finance-tracker |
-| **Demo video** | https://youtu.be/47KAOM2cL3g |
+| **Demo video** | https://youtu.be/HgG0tieG-8k |
 | **Author** | Quentin Ntore, [GitHub](https://github.com/Quentin712), q.ntore@alustudent.com |
 
 ## Contents
